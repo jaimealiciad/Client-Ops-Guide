@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RevShoppe Client Operations Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.7;
+            color: #1a1a1a;
+            background: #ffffff;
+            font-size: 16px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: #ffffff;
+            padding: 60px 40px;
+            text-align: center;
+            border-bottom: 1px solid #e8e8e8;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo-lightning {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #D9413C 0%, #BF3687 100%);
+            clip-path: polygon(20% 0%, 80% 0%, 60% 45%, 100% 45%, 40% 100%, 50% 55%, 0% 55%);
+            margin-right: 15px;
+        }
+        
+        header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 3em;
+            margin-bottom: 15px;
+            color: #1a1a1a;
+            letter-spacing: -1px;
+        }
+        
+        header p {
+            font-size: 1.25em;
+            color: #666666;
+            font-weight: 400;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background: #ffffff;
+            border-bottom: 2px solid #f0f0f0;
+            overflow-x: auto;
+            padding: 0 40px;
+            gap: 5px;
+        }
+        
+        .nav-tab {
+            padding: 20px 30px;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            font-size: 15px;
+            font-weight: 600;
+            color: #666666;
+            transition: all 0.3s;
+            white-space: nowrap;
+            font-family: 'Montserrat', sans-serif;
+            border-bottom: 3px solid transparent;
+            position: relative;
+        }
+        
+        .nav-tab:hover {
+            color: #D9413C;
+        }
+        
+        .nav-tab.active {
+            color: #D9413C;
+            border-bottom: 3px solid #D9413C;
+        }
+        
+        .content {
+            padding: 80px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-header {
+            font-size: 2.5em;
+            color: #1a1a1a;
+            margin: 60px 0 40px 0;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+        
+        .section-header:first-child {
+            margin-top: 0;
+        }
+        
+        .process-flow {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .process-step {
+            text-align: center;
+            padding: 30px 20px;
+            background: #ffffff;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+        
+        .process-step:hover {
+            border-color: #D9413C;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(217, 65, 60, 0.1);
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #D9413C 0%, #BF3687 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 24px;
+            margin: 0 auto 20px;
+        }
+        
+        .step-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+            font-size: 1.1em;
+        }
+        
+        .step-subtitle {
+            font-size: 14px;
+            color: #666666;
+            font-weight: 400;
+        }
+        
+        .quick-ref {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .ref-card {
+            background: #ffffff;
+            border: 2px solid #f0f0f0;
+            padding: 40px 30px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .ref-card:hover {
+            border-color: #9B2AFF;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(155, 42, 255, 0.15);
+        }
+        
+        .ref-card h3 {
+            font-size: 4em;
+            margin-bottom: 10px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #D9413C 0%, #9B2AFF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .ref-card p {
+            color: #666666;
+            font-weight: 500;
+            font-size: 1.05em;
+        }
+        
+        .info-box {
+            background: #f9f9f9;
+            border-left: 4px solid #9B2AFF;
+            padding: 25px 30px;
+            margin: 40px 0;
+            border-radius: 8px;
+            font-size: 1.05em;
+        }
+        
+        .info-box strong {
+            color: #9B2AFF;
+            font-weight: 700;
+        }
+        
+        .card {
+            background: #ffffff;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            padding: 40px;
+            margin: 40px 0;
+            transition: all 0.3s;
+        }
+        
+        .card:hover {
+            border-color: #e0e0e0;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid #f5f5f5;
+        }
+        
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-right: 20px;
+        }
+        
+        .internal {
+            background: linear-gradient(135deg, #D9413C 0%, #BF3687 100%);
+        }
+        
+        .client {
+            background: linear-gradient(135deg, #9B2AFF 0%, #5E46EC 100%);
+        }
+        
+        .milestone {
+            background: linear-gradient(135deg, #BF3687 0%, #9B2AFF 100%);
+        }
+        
+        .card-title {
+            font-size: 1.75em;
+            font-weight: 800;
+            color: #1a1a1a;
+            letter-spacing: -0.5px;
+        }
+        
+        .card p {
+            margin: 15px 0;
+            color: #666666;
+            line-height: 1.7;
+        }
+        
+        .card strong {
+            color: #1a1a1a;
+            font-weight: 700;
+        }
+        
+        .checklist {
+            list-style: none;
+            margin-top: 20px;
+        }
+        
+        .checklist li {
+            padding: 15px 20px;
+            margin: 12px 0;
+            background: #f9f9f9;
+            border-left: 4px solid #9B2AFF;
+            border-radius: 6px;
+            display: flex;
+            align-items: flex-start;
+            transition: all 0.2s;
+        }
+        
+        .checklist li:hover {
+            background: #f5f5f5;
+            border-left-color: #D9413C;
+        }
+        
+        .checklist li::before {
+            content: '✓';
+            color: #9B2AFF;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+            margin: 40px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #D9413C 0%, #BF3687 50%, #9B2AFF 100%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -42px;
+            top: 8px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #D9413C;
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px #f5f5f5;
+        }
+        
+        .timeline-label {
+            display: inline-block;
+            background: linear-gradient(135deg, #D9413C 0%, #BF3687 100%);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+        
+        .timeline-content {
+            background: #f9f9f9;
+            padding: 20px 25px;
+            border-radius: 10px;
+            border-left: 3px solid #D9413C;
+        }
+        
+        .timeline-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+            font-size: 1.1em;
+        }
+        
+        .timeline-details {
+            font-size: 15px;
+            color: #666666;
+            line-height: 1.7;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin: 8px 8px 8px 0;
+            letter-spacing: 0.3px;
+        }
+        
+        .badge-internal {
+            background: #D9413C;
+            color: white;
+        }
+        
+        .badge-client {
+            background: #9B2AFF;
+            color: white;
+        }
+        
+        .badge-time {
+            background: #BF3687;
+            color: white;
+        }
+        
+        .link-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #9B2AFF 0%, #5E46EC 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin: 10px 10px 10px 0;
+            font-size: 14px;
+            font-weight: 700;
+            transition: all 0.3s;
+            letter-spacing: 0.3px;
+        }
+        
+        .link-button:hover {
+            background: linear-gradient(135deg, #D9413C 0%, #BF3687 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(155, 42, 255, 0.3);
+        }
+        
+        .checkpoint-box {
+            background: linear-gradient(135deg, rgba(217, 65, 60, 0.05) 0%, rgba(191, 54, 135, 0.05) 100%);
+            border: 2px solid #D9413C;
+            padding: 35px 40px;
+            margin: 50px 0;
+            border-radius: 12px;
+        }
+        
+        .checkpoint-box strong {
+            color: #D9413C;
+            font-weight: 800;
+            font-size: 1.3em;
+            display: block;
+            margin-bottom: 20px;
+        }
+        
+        .checkpoint-box ul {
+            margin-top: 20px;
+            margin-left: 30px;
+        }
+        
+        .checkpoint-box li {
+            margin: 12px 0;
+            color: #1a1a1a;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <div class="logo-lightning"></div>
+            </div>
+            <h1>Client Operations Guide</h1>
+            <p>Your visual roadmap from pre-sales to project delivery</p>
+        </header>
+        
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="switchTab('overview', this)">Overview</button>
+            <button class="nav-tab" onclick="switchTab('presales', this)">Pre-Sales & Setup</button>
+            <button class="nav-tab" onclick="switchTab('kickoff', this)">Kickoff</button>
+            <button class="nav-tab" onclick="switchTab('communication', this)">Communication Plan</button>
+            <button class="nav-tab" onclick="switchTab('phases', this)">Project Phases</button>
+        </div>
+        
+        <div class="content">
+            <!-- OVERVIEW TAB -->
+            <div id="overview" class="tab-content active">
+                <h2 class="section-header">The Journey at a Glance</h2>
+                
+                <div class="process-flow">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Pre-Sales</div>
+                        <div class="step-subtitle">Setup & Planning</div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Kickoff</div>
+                        <div class="step-subtitle">Align & Launch</div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Design</div>
+                        <div class="step-subtitle">Strategy & Planning</div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <div class="step-title">Build</div>
+                        <div class="step-subtitle">Implementation</div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">5</div>
+                        <div class="step-title">Validate</div>
+                        <div class="step-subtitle">Test & Optimize</div>
+                    </div>
+                </div>
+                
+                <h2 class="section-header">Key Timelines</h2>
+                <div class="quick-ref">
+                    <div class="ref-card">
+                        <h3>7</h3>
+                        <p>Days to kickoff after SOW execution</p>
+                    </div>
+                    <div class="ref-card">
+                        <h3>14</h3>
+                        <p>Days to complete all setup checklist items</p>
+                    </div>
+                    <div class="ref-card">
+                        <h3>24-48</h3>
+                        <p>Hours before client sync for internal prep</p>
+                    </div>
+                    <div class="ref-card">
+                        <h3>3</h3>
+                        <p>Hours to send meeting recaps</p>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <strong>Quick Navigation:</strong> Use the tabs above to jump to specific phases. Each section includes checklists, timelines, and template links.
+                </div>
+            </div>
+            
+            <!-- PRE-SALES TAB -->
+            <div id="presales" class="tab-content">
+                <h2 class="section-header">Pre-Sales & SOW Execution</h2>
+                
+                <div class="info-box">
+                    <strong>Trigger:</strong> SOW moves to Stage 4, pending execution. CoPS receives Slack notification.
+                </div>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <span class="timeline-label">STEP 1</span>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Identify PDT Resources</div>
+                            <div class="timeline-details">CoPS reviews capacity with Delivery Lead → Assignment determined</div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <span class="timeline-label">STEP 2</span>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Setup Program Resources</div>
+                            <div class="timeline-details">
+                                • Gong Library for call recordings<br>
+                                • GDrive folders (internal + external client)<br>
+                                • Internal Slack channel
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <span class="timeline-label">STEP 3</span>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Internal Download Call</div>
+                            <div class="timeline-details">
+                                <span class="badge badge-internal">INTERNAL</span>
+                                <span class="badge badge-time">30-60 min</span><br>
+                                CoPS + Sales initial handoff discussion
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <span class="timeline-label">STEP 4</span>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Sales Email Introduction</div>
+                            <div class="timeline-details">
+                                Sales introduces CoPS to client via email<br>
+                                <a href="https://docs.google.com/document/d/1UU0C96QQ4Ip-ektj1TPhZZlHY5zYieLV214GiM0cP04/edit?usp=sharing" class="link-button" target="_blank">Email Template</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <span class="timeline-label">STEP 5</span>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Client Introductory Call</div>
+                            <div class="timeline-details">
+                                <span class="badge badge-client">CLIENT FACING</span>
+                                <span class="badge badge-time">30-60 min</span><br>
+                                CoPS + Sales + Client | Distribute Client Intake Form<br>
+                                <a href="https://docs.google.com/document/d/1fzEzchYiaIWQUezEd-PiXIXRu7CywU-9F84UIcrG-TU/edit?usp=sharing" class="link-button" target="_blank">Agenda</a>
+                                <a href="https://docs.google.com/forms/d/e/1FAIpQLScqOKwRO1V38BceXkEQLQig-HiLM76hSCjECiJDQRqqf0P0gA/viewform?usp=header" class="link-button" target="_blank">Intake Form</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <span class="timeline-label">STEP 6</span>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Internal Handoff Call</div>
+                            <div class="timeline-details">
+                                <span class="badge badge-internal">INTERNAL</span>
+                                <span class="badge badge-time">60 min</span><br>
+                                CoPS + Sales + PDT | Full handoff from Sales to Delivery<br>
+                                <a href="https://docs.google.com/document/d/1fzEzchYiaIWQUezEd-PiXIXRu7CywU-9F84UIcrG-TU/edit?usp=sharing" class="link-button" target="_blank">Agenda</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <span class="timeline-label">STEP 7</span>
+                        <div class="timeline-content">
+                            <div class="timeline-title">SOW & Strategy Review</div>
+                            <div class="timeline-details">
+                                <span class="badge badge-internal">INTERNAL</span>
+                                <span class="badge badge-time">60 min</span><br>
+                                CoPS + Sales + PDT + ELT | Strategic alignment<br>
+                                <a href="https://docs.google.com/document/d/1fzEzchYiaIWQUezEd-PiXIXRu7CywU-9F84UIcrG-TU/edit?usp=sharing" class="link-button" target="_blank">Agenda</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- KICKOFF TAB -->
+            <div id="kickoff" class="tab-content">
+                <h2 class="section-header">Kickoff Phase</h2>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon internal">🔧</div>
+                        <div class="card-title">Setup Actions</div>
+                    </div>
+                    <ul class="checklist">
+                        <li>Schedule client kickoff using email template</li>
+                        <li>Establish internal Rhythm of Business (RoB)</li>
+                        <li>Confirm roles & responsibilities</li>
+                        <li>Add cadenced internal meetings to calendars</li>
+                        <li>Complete internal RoB meeting, save slides</li>
+                    </ul>
+                    <a href="https://drive.google.com/drive/folders/1PiOOzlqoasuWU0edQ-b6nb9faoNGG1ux?usp=drive_link" class="link-button" target="_blank">Kickoff Templates</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon client">🎯</div>
+                        <div class="card-title">Client Kickoff Call</div>
+                    </div>
+                    <p><span class="badge badge-client">CLIENT FACING</span> <span class="badge badge-time">Within 7 days of SOW execution</span></p>
+                    <p><strong>Audience:</strong> Exec sponsors + core team (both sides)</p>
+                    <p><strong>Purpose:</strong> Align on program expectations and timelines</p>
+                    <ul class="checklist">
+                        <li>Hold internal alignment call before client kickoff</li>
+                        <li>Review kickoff deck with team</li>
+                        <li>Save all notes in Client's Internal folder</li>
+                    </ul>
+                    <a href="https://drive.google.com/drive/folders/1PiOOzlqoasuWU0edQ-b6nb9faoNGG1ux?usp=drive_link" class="link-button" target="_blank">Kickoff Deck Template</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon client">📊</div>
+                        <div class="card-title">Program Success Call</div>
+                    </div>
+                    <p><span class="badge badge-client">CLIENT FACING</span> <span class="badge badge-time">During weekly standup after kickoff</span></p>
+                    <p><strong>Audience:</strong> Core team who can speak to metrics</p>
+                    <p><strong>Purpose:</strong> Define success metrics for the project</p>
+                    <a href="https://docs.google.com/document/d/1eh1dATk4TB029seHFeVs4VGJFn7qjzKhbihYirPqPlE/edit?usp=sharing" class="link-button" target="_blank">Success Call Agenda</a>
+                </div>
+                
+                <div class="checkpoint-box">
+                    <strong>🛑 14-DAY CHECKPOINT</strong>
+                    Within 14 days of SOW execution, ensure ALL of these are complete:
+                    <ul>
+                        <li>✓ Project team confirmed with R&Rs</li>
+                        <li>✓ Program Lead identified</li>
+                        <li>✓ CoPS handoff completed</li>
+                        <li>✓ Internal RoB established</li>
+                        <li>✓ Stakeholders identified & documented</li>
+                        <li>✓ Client kickoff completed</li>
+                        <li>✓ Program Success call completed</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- COMMUNICATION PLAN TAB -->
+            <div id="communication" class="tab-content">
+                <h2 class="section-header">Communication & Project Management</h2>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon internal">📋</div>
+                        <div class="card-title">Internal Project Management</div>
+                    </div>
+                    <p><strong>Kantata:</strong> Project plan referencing SOW | Owner: Strategic Account Director</p>
+                    <p><strong>Expectation:</strong> Time tracked weekly by EOD first business day of following week</p>
+                    <p style="margin-top: 20px;"><strong>GDrive/OneDrive:</strong> Internal folder for all documents, drafts, notes, deliverables</p>
+                    <p><strong>Expectation:</strong> Organized weekly | Nothing on personal drives</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon internal">🗓️</div>
+                        <div class="card-title">Weekly Internal Sync</div>
+                    </div>
+                    <p><span class="badge badge-internal">INTERNAL</span> <span class="badge badge-time">30-60 min | 24-48 hrs before client sync</span></p>
+                    <p><strong>Attendees:</strong> Core internal project team</p>
+                    <p><strong>Outcomes:</strong></p>
+                    <ul class="checklist">
+                        <li>Confirm client facing call agenda (GTM updates invite)</li>
+                        <li>Confirm roles & responsibilities for call</li>
+                        <li>Review metrics and discussion points</li>
+                        <li>Update Kantata project</li>
+                    </ul>
+                    <a href="https://docs.google.com/presentation/d/1l9WQC1eaFlbe3p0UqAW-gBjfHuVYQudb0FFjKCOP4Yg/edit?usp=drive_link" class="link-button" target="_blank">Internal RoB Template</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon client">💬</div>
+                        <div class="card-title">Weekly Client Sync</div>
+                    </div>
+                    <p><span class="badge badge-client">CLIENT FACING</span> <span class="badge badge-time">30-60 min</span></p>
+                    <p><strong>Attendees:</strong> SAD (leads & facilitates), GTM (supports & records), Sales (as needed), Client team</p>
+                    <p><strong>Outcomes:</strong></p>
+                    <ul class="checklist">
+                        <li>SAD reviews agenda and leads discussion</li>
+                        <li>Call recap sent within 3 hours (or next morning for EOD meetings)</li>
+                        <li>Recap saved in shared locations</li>
+                    </ul>
+                    <a href="https://docs.google.com/presentation/d/1MRbP8mYGIhhKJ3t16nVzhpWRczyu57r90Ui-ZrTpyVE/edit?usp=drive_link" class="link-button" target="_blank">Client RoB Template</a>
+                    <a href="https://docs.google.com/document/d/17lbaeKgR0MI_Hu0pwCOkxhx7mnYvRlvTNaVGDvmj4f4/edit?usp=sharing" class="link-button" target="_blank">Email Template</a>
+                </div>
+            </div>
+            
+            <!-- PHASES TAB -->
+            <div id="phases" class="tab-content">
+                <h2 class="section-header">Project Phases: Design → Build → Validate</h2>
+                
+                <!-- DESIGN PHASE -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon milestone">🎨</div>
+                        <div class="card-title">Design Phase</div>
+                    </div>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <span class="timeline-label">WEEKLY</span>
+                            <div class="timeline-content">
+                                <div class="timeline-title">Regular Syncs</div>
+                                <div class="timeline-details">
+                                    • Internal team check-in<br>
+                                    • Client facing team check-in
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <span class="timeline-label">10 DAYS BEFORE READOUT</span>
+                            <div class="timeline-content">
+                                <div class="timeline-title">Internal Executive Review</div>
+                                <div class="timeline-details">
+                                    <span class="badge badge-internal">INTERNAL</span>
+                                    <span class="badge badge-time">60 min</span><br>
+                                    Internal team + CEO (Patty) | Align on strategy & workflow plan<br>
+                                    <a href="https://docs.google.com/document/d/10XyGqPPLAV-dTvCLryzJ5NUXbRGNhmKai-pPpzZ7uyU/edit?usp=drive_link" class="link-button" target="_blank">Agenda</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <span class="timeline-label">AFTER ELT REVIEW</span>
+                            <div class="timeline-content">
+                                <div class="timeline-title">Internal Team Debrief</div>
+                                <div class="timeline-details">
+                                    Action ELT feedback before Client Dry Run<br>
+                                    <a href="https://docs.google.com/document/d/10XyGqPPLAV-dTvCLryzJ5NUXbRGNhmKai-pPpzZ7uyU/edit?usp=drive_link" class="link-button" target="_blank">Agenda</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <span class="timeline-label">1 WEEK BEFORE READOUT</span>
+                            <div class="timeline-content">
+                                <div class="timeline-title">Client Dry Run</div>
+                                <div class="timeline-details">
+                                    <span class="badge badge-client">CLIENT FACING</span>
+                                    <span class="badge badge-time">60 min</span><br>
+                                    Feedback session with core client team<br>
+                                    <a href="https://docs.google.com/document/d/1znTGw79OQZ4UWMs05gQaho2gY96gUDFLQPV2YrwwGus/edit?usp=drive_link" class="link-button" target="_blank">Agenda</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <span class="timeline-label">WORKFLOW READOUT</span>
+                            <div class="timeline-content">
+                                <div class="timeline-title">Official Readout Meeting</div>
+                                <div class="timeline-details">
+                                    <span class="badge badge-client">CLIENT FACING</span>
+                                    <span class="badge badge-time">(2) 60-min calls OR (1) 90-min call</span><br>
+                                    Share findings and recommendations with all kickoff attendees
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- BUILD PHASE -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon milestone">🔨</div>
+                        <div class="card-title">Build Phase</div>
+                    </div>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <span class="timeline-label">WEEKLY</span>
+                            <div class="timeline-content">
+                                <div class="timeline-title">Regular Syncs</div>
+                                <div class="timeline-details">
+                                    • Internal team check-in<br>
+                                    • Client facing team check-in
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <span class="timeline-label">1 WEEK BEFORE LAUNCH</span>
+                            <div class="timeline-content">
+                                <div class="timeline-title">Executive Review</div>
+                                <div class="timeline-details">
+                                    <span class="badge badge-internal">INTERNAL</span><br>
+                                    Align on workflow & pilot strategy before launch
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <span class="timeline-label">AFTER ELT REVIEW</span>
+                            <div class="timeline-content">
+                                <div class="timeline-title">Internal Team Debrief</div>
+                                <div class="timeline-details">
+                                    Action ELT feedback and align
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <span class="timeline-label">AS NEEDED</span>
+                            <div class="timeline-content">
+                                <div class="timeline-title">Executive Business Review (EBR)</div>
+                                <div class="timeline-details">
+                                    Virtual or live | Program statuses and risks
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- VALIDATE PHASE -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon milestone">✅</div>
+                        <div class="card-title">Validate Phase</div>
+                    </div>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <span class="timeline-label">WEEKLY</span>
+                            <div class="timeline-content">
+                                <div class="timeline-title">Regular Syncs</div>
+                                <div class="timeline-details">
+                                    • Internal team check-in<br>
+                                    • Client facing team check-in
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <span class="timeline-label">1 WEEK BEFORE READOUT</span>
+                            <div class="timeline-content">
+                                <div class="timeline-title">Executive Review</div>
+                                <div class="timeline-details">
+                                    <span class="badge badge-internal">INTERNAL</span><br>
+                                    Align on workflow readout & expansion strategy
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <span class="timeline-label">AFTER ELT REVIEW</span>
+                            <div class="timeline-content">
+                                <div class="timeline-title">Internal Team Debrief</div>
+                                <div class="timeline-details">
+                                    Action ELT feedback and align
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <span class="timeline-label">PROGRAM READOUT</span>
+                            <div class="timeline-content">
+                                <div class="timeline-title">Official Readout Meeting</div>
+                                <div class="timeline-details">
+                                    <span class="badge badge-client">CLIENT FACING</span>
+                                    <span class="badge badge-time">(2) 60-min calls OR (1) 90-min call</span><br>
+                                    Goal: Move to Scale phase | All kickoff attendees invited
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <span class="timeline-label">AFTER READOUT</span>
+                            <div class="timeline-content">
+                                <div class="timeline-title">Internal Retrospective</div>
+                                <div class="timeline-details">
+                                    <span class="badge badge-internal">INTERNAL</span><br>
+                                    Team debrief on what worked and what to improve<br>
+                                    <a href="https://docs.google.com/document/d/1ggXxc-eJwvVR4nLfVkqJ3aDU_-AYyepZyYulCFNzZ9k/edit?tab=t.0" class="link-button" target="_blank">Retrospective Template</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <strong>Pro Tip:</strong> Each phase follows a similar rhythm - weekly syncs, pre-readout executive review, team debrief, then client milestone meeting. Use the templates linked above to maintain consistency.
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function switchTab(tabId, buttonElement) {
+            // Hide all tab contents
+            var tabContents = document.getElementsByClassName('tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove('active');
+            }
+            
+            // Remove active class from all buttons
+            var tabButtons = document.getElementsByClassName('nav-tab');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove('active');
+            }
+            
+            // Show the selected tab
+            document.getElementById(tabId).classList.add('active');
+            
+            // Add active class to clicked button
+            buttonElement.classList.add('active');
+        }
+    </script>
+</body>
+</html>
